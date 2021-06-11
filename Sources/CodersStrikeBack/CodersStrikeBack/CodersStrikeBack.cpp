@@ -1,31 +1,19 @@
 #include <iostream>
 #include "MovementBrain.h"
+#include "Tests.h"
 
 using namespace std;
 
 int main()
 {
-    while (1) {
-        Vector2 podPosition;
-        Vector2 nextCheckpoint; // position of the next check point
+    AllTest();
+    while (1) 
+    {
+        MovementBrain AI;
+        AI.AcquireBoardState();
+        InstructionData data = AI.GetPodCommand();
 
-        int nextCheckpointDist; // distance to the next checkpoint
-        int nextCheckpointAngle; // angle between your pod orientation and the direction of the next checkpoint
-
-        cin >> podPosition.x >> podPosition.y >> nextCheckpoint.x >> nextCheckpoint.y >> nextCheckpointDist >> nextCheckpointAngle; cin.ignore();
-
-        Vector2 opponent;
-
-        cin >> opponent.x >> opponent.y; cin.ignore();
-
-        // Write an action using cout. DON'T FORGET THE "<< endl"
-        // To debug: cerr << "Debug messages..." << endl;
-
-
-        // You have to output the target position
-        // followed by the power (0 <= thrust <= 100)
-        // i.e.: "x y thrust"
-        cout << nextCheckpoint.x << " " << nextCheckpoint.y << " 80" << endl;
+        cout << data.targetPos.x << " " << data.targetPos.y << " " << data.thrust << endl;
     }
 }
 

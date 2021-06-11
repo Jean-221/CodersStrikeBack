@@ -9,6 +9,7 @@ struct InstructionData
 
 class MovementBrain
 {
+private:
     Vector2 m_cPodPosition;
     Vector2 m_cNextCheckpoint; // position of the next check point
 
@@ -17,6 +18,7 @@ class MovementBrain
 
     Vector2 opponent;
 
+public:
     void AcquireBoardState();
 
     InstructionData GetPodCommand();

@@ -1,4 +1,5 @@
 #include "Vector2.h"
+#include <cmath>
 
 Vector2::Vector2()
 {
@@ -30,5 +31,5 @@ Vector2 Vector2::operator-(const Vector2& other)
 
 float Vector2::Length()
 {
-	return 0.0f;
+	return sqrt(pow(x, 2) + pow(y, 2));
 }

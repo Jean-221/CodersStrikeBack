@@ -15,7 +15,7 @@ InstructionData MovementBrain::GetPodCommand()
     InstructionData data;
 
     data.targetPos = m_cNextCheckpoint;
-    data.thrust;
+    data.thrust = ((m_iNextCheckpointDist < 150) || (m_iNextCheckpointAngle > 30)) ? 20 : 100;
 
-    return InstructionData();
+    return data;
 }

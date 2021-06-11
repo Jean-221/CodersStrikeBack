@@ -139,12 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Brain.cpp" />
     <ClCompile Include="CodersStrikeBack.cpp" />
     <ClCompile Include="MovementBrain.cpp" />
+    <ClCompile Include="SkillBrain.cpp" />
     <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Brain.h" />
+    <ClInclude Include="DataStructure.h" />
     <ClInclude Include="MovementBrain.h" />
+    <ClInclude Include="SkillBrain.h" />
     <ClInclude Include="Tests.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>

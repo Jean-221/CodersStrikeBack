@@ -3,19 +3,18 @@
 
 using namespace std;
 
-void MovementBrain::AcquireBoardState()
+MovementInstructionData MovementBrain::ComputeMovement(const CheckpointData &_cChecpointData)
 {
-    cin >> m_cPodPosition.x >> m_cPodPosition.y >> m_cNextCheckpoint.x >> m_cNextCheckpoint.y >> m_iNextCheckpointDist >> m_iNextCheckpointAngle; cin.ignore();
+    MovementInstructionData data;
 
-    cin >> opponent.x >> opponent.y; cin.ignore();
-}
-
-InstructionData MovementBrain::GetPodCommand()
-{
-    InstructionData data;
-
-    data.targetPos = m_cNextCheckpoint;
-    data.thrust = ((m_iNextCheckpointDist < 150) || (m_iNextCheckpointAngle > 30)) ? 20 : 100;
+    data.targetPos = _cChecpointData.position;
+    data.thrust = ((_cChecpointData.Dist < s_iDecelerationDist) || (_cChecpointData.Angle > s_iAlignementThreshold)) ? s_iTurningThrust : s_iMaxThrust;
 
     return data;
 }
+
+int MovementBrain::s_iMaxThrust = 100;
+int MovementBrain::s_iTurningThrust = 10;
+
+int MovementBrain::s_iDecelerationDist = 90;
+int MovementBrain::s_iAlignementThreshold = 90;

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "MovementBrain.h"
+#include "Brain.h"
 #include "Tests.h"
 
 using namespace std;
@@ -9,11 +9,9 @@ int main()
     AllTest();
     while (1) 
     {
-        MovementBrain AI;
+        Brain AI;
         AI.AcquireBoardState();
-        InstructionData data = AI.GetPodCommand();
-
-        cout << data.targetPos.x << " " << data.targetPos.y << " " << data.thrust << endl;
+        AI.ComputeAndPrintInstruction();
     }
 }
 

@@ -1,10 +1,11 @@
 #pragma once
 #include "DataStructure.h"
+#include "Pod.h"
 
 
 class MovementBrain
 {
-private:
+protected:
     static int s_iMaxThrust;
     static int s_iTurningThrust;
                
@@ -12,7 +13,7 @@ private:
     static int s_iAlignementThreshold;
 public:
 
-    MovementInstructionData ComputeMovement(const CheckpointData&);
+    MovementInstructionData ComputeMovement(const CheckpointData&, const Pod &_cPlayer) const;
 
 };
 

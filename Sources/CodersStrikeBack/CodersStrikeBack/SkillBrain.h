@@ -3,10 +3,10 @@
 
 class SkillBrain
 {
-private:
+protected:
 	bool m_bBoostAvailable = true;
-	int m_iBoostDistActivation = 5000;
-	int m_iMaximumAngleForBoost = 30;
+	int m_iBoostDistActivation = 6000;
+	int m_iMaximumAngleForBoost = 10;
 
 public:
 	bool UseBoost(const CheckpointData&);

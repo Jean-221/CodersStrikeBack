@@ -7,9 +7,9 @@ using namespace std;
 int main()
 {
     AllTest();
+    Brain AI;
     while (1) 
     {
-        Brain AI;
         AI.AcquireBoardState();
         AI.ComputeAndPrintInstruction();
     }

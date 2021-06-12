@@ -1,0 +1,5 @@
+Max Speed is around 650
+boost set current speed to max speed in one turn
+you need around 7-8 turn to loose all your max speed and turn around
+you need between 15-20 turn to achieve max speed by thrusting at 100%
+max acceleration seems to be around 80 (in straight line)

@@ -140,15 +140,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Brain.cpp" />
+    <ClCompile Include="Checkpoint.cpp" />
     <ClCompile Include="CodersStrikeBack.cpp" />
     <ClCompile Include="MovementBrain.cpp" />
+    <ClCompile Include="PhysicComputation.cpp" />
+    <ClCompile Include="Pod.cpp" />
+    <ClCompile Include="SceneEntity.cpp" />
     <ClCompile Include="SkillBrain.cpp" />
     <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brain.h" />
+    <ClInclude Include="Checkpoint.h" />
     <ClInclude Include="DataStructure.h" />
     <ClInclude Include="MovementBrain.h" />
+    <ClInclude Include="PhysicComputation.h" />
+    <ClInclude Include="Pod.h" />
+    <ClInclude Include="SceneEntity.h" />
     <ClInclude Include="SkillBrain.h" />
     <ClInclude Include="Tests.h" />
     <ClInclude Include="Vector2.h" />

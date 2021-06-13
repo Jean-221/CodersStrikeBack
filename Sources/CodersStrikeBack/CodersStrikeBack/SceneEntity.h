@@ -1,6 +1,9 @@
 #pragma once
 #include "Vector2.h"
 
+/// <summary>
+/// Represent different board entity (checkpoint and pods)
+/// </summary>
 class SceneEntity abstract
 {
 protected:

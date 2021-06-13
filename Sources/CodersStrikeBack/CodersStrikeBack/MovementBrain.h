@@ -3,16 +3,21 @@
 #include "Pod.h"
 
 
+/// <summary>
+/// Compute steering and thrust of the pod
+/// </summary>
 class MovementBrain
 {
 protected:
-    static int s_iMaxThrust;
-    static int s_iTurningThrust;
-               
-    static int s_iDecelerationDist;
-    static int s_iAlignementThreshold;
+    static float s_iMaxThrust;
+    static float s_iTurningThrust;
 public:
-
+    /// <summary>
+    /// Compute instruction for the pod steering
+    /// </summary>
+    /// <param name=""></param>
+    /// <param name="_cPlayer"></param>
+    /// <returns></returns>
     MovementInstructionData ComputeMovement(const CheckpointData&, const Pod &_cPlayer) const;
 
 };

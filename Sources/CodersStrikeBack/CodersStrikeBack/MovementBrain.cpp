@@ -6,32 +6,28 @@ using namespace std;
 MovementInstructionData MovementBrain::ComputeMovement(const CheckpointData &_cChecpointData, const Pod& _cPlayer) const
 {
     // Compute number of turn needed to atteign checkpoint at our speed (approximated to superior int)
+    // TODO : Move to PhysicComputation
     float nbTurn = ceil(_cChecpointData.Dist / _cPlayer.GetVelocity().Length());
 
     // Compute our position in this number of turn, base on our velocity
     Vector2 anticipatedPos = _cPlayer.GetPosition() + _cPlayer.GetVelocity()* nbTurn;
 
-    // Pos we will aim to compensate
-    Vector2 aimedPos = _cPlayer.GetPosition() + (_cChecpointData.position - anticipatedPos);
+    // Pos we will aim to compensate, devided by nbr of turn before reaching target (the closer we are the more we want to compensate)
+    Vector2 aimedPos = _cChecpointData.position + (_cChecpointData.position - anticipatedPos) / nbTurn;
 
+    // data structure to return to brain which will give instruction
     MovementInstructionData data;
 
-    data.targetPos = _cChecpointData.position;
-    //data.thrust = _cPlayer.GetVelocity().dot(anticipatedPos - _cPlayer.GetPosition()) < 0 ? s_iTurningThrust : s_iMaxThrust;
-    //data.thrust = ((_cChecpointData.Dist < s_iDecelerationDist) || (_cChecpointData.Angle > s_iAlignementThreshold)) ? s_iTurningThrust : s_iMaxThrust;
-    data.thrust = s_iMaxThrust;
+    // floor to prevent floating point value
+    data.targetPos = aimedPos.Floor();
 
-    // pod take aproximatively 7 turn from full speed to turn around
-    if (nbTurn < 7)
-    {
-        data.thrust = static_cast<int>(max(floor(_cPlayer.GetVelocity().Normalized().dot((data.targetPos - _cPlayer.GetPosition()).Normalized()) * s_iMaxThrust), 40.f));
-    }
+    // thrust depend on our alignement with target (dot will decrease if we steer away) if dot is negative we take the default tunrningthrust
+    // because we need to turn around
+    data.thrust = static_cast<int>(floor(max(_cPlayer.GetForward().dot((aimedPos - _cPlayer.GetPosition()).Normalized()) * s_iMaxThrust, s_iTurningThrust)));
+
 
     return data;
 }
 
-int MovementBrain::s_iMaxThrust = 100;
-int MovementBrain::s_iTurningThrust = 10;
-
-int MovementBrain::s_iDecelerationDist = 700;
-int MovementBrain::s_iAlignementThreshold = 90;
+float MovementBrain::s_iMaxThrust = 100;
+float MovementBrain::s_iTurningThrust = 10;

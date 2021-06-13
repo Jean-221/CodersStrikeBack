@@ -1,6 +1,9 @@
 #pragma once
 #include "DataStructure.h"
 
+/// <summary>
+/// Brain component to compute when to use skills
+/// </summary>
 class SkillBrain
 {
 protected:

@@ -6,6 +6,10 @@
 #include "Pod.h"
 #include "Checkpoint.h"
 
+
+/// <summary>
+/// Handle component that'll decide movement and use of skill of pods and translate instruction for codingame
+/// </summary>
 class Brain
 {
 protected:
@@ -22,11 +26,20 @@ protected:
     bool m_bFirstLapDone = false;
 
 
-public:
-    void AcquireBoardState();
-
+    /// <summary>
+    /// Compute command for the pod
+    /// </summary>
     void ComputePodCommand();
 
+public:
+    /// <summary>
+    /// Acquire input from codingame
+    /// </summary>
+    void AcquireBoardState();
+
+    /// <summary>
+    /// call the compute of command and print them
+    /// </summary>
     void ComputeAndPrintInstruction();
 };
 

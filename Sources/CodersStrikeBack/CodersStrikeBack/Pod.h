@@ -1,6 +1,10 @@
 #pragma once
 #include "SceneEntity.h"
+#include <vector>
+#include "Checkpoint.h"
 #include"DataStructure.h"
+
+using namespace std;
 
 /// <summary>
 /// Represent pod and store his data
@@ -29,8 +33,10 @@ protected:
 	/// </summary>
 	Vector2 m_cDeltaVelocity;
 
+	int m_iNextCheckpointIndex = 0;
+
 public:
-	void UpdatePositionAndForward(Vector2, CheckpointData);
+	void UpdatePositionAndForward(Vector2, Vector2, int, int);
 	int GetRadius() const override;
 	/// <summary>
 	/// Velocity computed with last position
@@ -47,5 +53,7 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	Vector2 GetForward() const;
+
+	int GetNextCheckpointID() const;
 };
 

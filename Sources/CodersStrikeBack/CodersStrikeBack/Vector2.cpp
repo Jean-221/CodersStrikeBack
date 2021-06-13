@@ -57,7 +57,7 @@ float Vector2::dot(Vector2 _cOther) const
 
 Vector2 Vector2::rotatedVector(float _fAngleDeg) const
 {
-	float angleRad = _fAngleDeg * M_PI / 180.f;
+	float angleRad = _fAngleDeg * static_cast<float>(M_PI) / 180.f;
 	float newX = x * cos(angleRad) - y * sin(angleRad);
 	float newY = x * sin(angleRad) + y * cos(angleRad);
 	return Vector2(newX, newY);

@@ -1,15 +1,15 @@
 #include "Pod.h"
 
 
-void Pod::UpdatePositionAndForward(Vector2 _cNewPosition, CheckpointData _cNextCheckpoint)
+void Pod::UpdatePositionAndForward(Vector2 _cNewPosition, Vector2 _cNewVelocity, int _iAngleFromEast, int _iNextCheckPointId)
 {
 	m_cPreviousPosition = m_cPosition;
 	m_cPosition = _cNewPosition;
 
-	// get vector from pod to checkpoint and normalize it
-	m_cForward = (_cNextCheckpoint.position - m_cPosition).Normalized();
-	// Rotate vector to the orientation of the pod relative to the checkpoint
-	m_cForward = m_cForward.rotatedVector(_cNextCheckpoint.Angle);
+	// Compute forward from angle from east
+	m_cForward = Vector2(1, 0).rotatedVector(_iAngleFromEast);
+
+	m_iNextCheckpointIndex = _iNextCheckPointId;
 
 	// Will be incoherent at the first turn
 	m_cPreviousVelocity = m_cVelocity;
@@ -36,4 +36,9 @@ Vector2 Pod::GetDeltaVelocity() const
 Vector2 Pod::GetForward() const
 {
 	return m_cForward;
+}
+
+int Pod::GetNextCheckpointID() const
+{
+	return m_iNextCheckpointIndex;
 }

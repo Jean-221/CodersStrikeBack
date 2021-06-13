@@ -3,17 +3,18 @@
 
 using namespace std;
 
-MovementInstructionData MovementBrain::ComputeMovement(const CheckpointData &_cChecpointData, const Pod& _cPlayer) const
+MovementInstructionData MovementBrain::ComputeMovement(const vector<Checkpoint> &_vChecpointData, const Pod& _cPlayer) const
 {
+    int checkpointId = _cPlayer.GetNextCheckpointID();
     // Compute number of turn needed to atteign checkpoint at our speed (approximated to superior int)
     // TODO : Move to PhysicComputation
-    float nbTurn = ceil(_cChecpointData.Dist / _cPlayer.GetVelocity().Length());
+    float nbTurn = ceil((_vChecpointData[checkpointId].GetPosition() - _cPlayer.GetPosition()).Length() / _cPlayer.GetVelocity().Length());
 
-    // Compute our position in this number of turn, base on our velocity
-    Vector2 anticipatedPos = _cPlayer.GetPosition() + _cPlayer.GetVelocity()* nbTurn;
+    // Compute our position in this number of turn, based on our velocity
+    Vector2 anticipatedPos = _cPlayer.GetPosition() + _cPlayer.GetVelocity()* nbTurn * 0.85f;
 
     // Pos we will aim to compensate, devided by nbr of turn before reaching target (the closer we are the more we want to compensate)
-    Vector2 aimedPos = _cChecpointData.position + (_cChecpointData.position - anticipatedPos) / nbTurn;
+    Vector2 aimedPos = _vChecpointData[checkpointId].GetPosition() + (_vChecpointData[checkpointId].GetPosition() - anticipatedPos) / nbTurn;
 
     // data structure to return to brain which will give instruction
     MovementInstructionData data;

@@ -31,17 +31,18 @@ void Brain::AcquireLapInformation()
 void Brain::AcquireBoardState()
 {
 	// store pod position before instantiation
-	Vector2 podPos;
+	Vector2 podPos, podVelocity;
+	int podAngle, nextCheckpointId;
 
 
 	for (int i = 0; i < s_iNumberOfPlayerPods; i++)
 	{
 		// capture input from codingame for the player pod and the next checkpoint
-		cin >> podPos.x >> podPos.y >> m_cNextCheckpoint.position.x >> m_cNextCheckpoint.position.y
-			>> m_cNextCheckpoint.Dist >> m_cNextCheckpoint.Angle; cin.ignore();
+		cin >> podPos.x >> podPos.y >> podVelocity.x >> podVelocity.y
+			>> podAngle >> nextCheckpointId; cin.ignore();
 
 		// update player data
-		m_vPlayer[i].UpdatePositionAndForward(podPos, m_cNextCheckpoint);
+		m_vPlayer[i].UpdatePositionAndForward(podPos, podVelocity, podAngle, nextCheckpointId);
 	}
 
 
@@ -49,16 +50,17 @@ void Brain::AcquireBoardState()
 	for (int i = 0; i < s_iNumberOfEnnemyPods; i++)
 	{
 		// capture input from codingame for the ennemy pod
-		cin >> podPos.x >> podPos.y; cin.ignore();
+		cin >> podPos.x >> podPos.y >> podVelocity.x >> podVelocity.y
+			>> podAngle >> nextCheckpointId; cin.ignore();
 
 		// update ennemy data
-		m_vEnnemy[i].UpdatePositionAndForward(podPos, m_cNextCheckpoint);
+		m_vEnnemy[i].UpdatePositionAndForward(podPos, podVelocity, podAngle, nextCheckpointId);
 	}
 }
 
 MovementInstructionData Brain::ComputePodCommand(int _iIndex)
 {
-	return m_cMovementBrain.ComputeMovement(m_cNextCheckpoint, m_vPlayer[_iIndex]);
+	return m_cMovementBrain.ComputeMovement(m_vCheckpoints, m_vPlayer[_iIndex]);
 }
 
 

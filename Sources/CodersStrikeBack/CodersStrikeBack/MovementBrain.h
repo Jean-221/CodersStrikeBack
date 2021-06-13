@@ -18,7 +18,7 @@ public:
     /// <param name=""></param>
     /// <param name="_cPlayer"></param>
     /// <returns></returns>
-    MovementInstructionData ComputeMovement(const CheckpointData&, const Pod &_cPlayer) const;
+    MovementInstructionData ComputeMovement(const vector<Checkpoint>&, const Pod &_cPlayer) const;
 
 };
 

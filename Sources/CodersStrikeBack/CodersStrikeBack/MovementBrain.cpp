@@ -26,6 +26,13 @@ MovementInstructionData MovementBrain::ComputeMovement(const vector<Checkpoint> 
     // because we need to turn around
     data.thrust = static_cast<int>(floor(max(_cPlayer.GetForward().dot((aimedPos - _cPlayer.GetPosition()).Normalized()) * s_iMaxThrust, s_iTurningThrust)));
 
+    // Last minute test, stop thrust and start turning when we're almost certain to pass the checkpoint
+    if (nbTurn < 4 && (_cPlayer.GetVelocity().Length() > 400)
+        && (_vChecpointData[checkpointId].GetPosition() - anticipatedPos).Length() < 600)
+    {
+        data.targetPos = _vChecpointData[(_cPlayer.GetNextCheckpointID() + 1) % _vChecpointData.size()].GetPosition();
+        data.thrust = 0;
+    }
 
     return data;
 }

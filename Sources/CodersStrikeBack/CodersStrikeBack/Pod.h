@@ -34,6 +34,7 @@ protected:
 	Vector2 m_cDeltaVelocity;
 
 	int m_iNextCheckpointIndex = 0;
+	bool m_bBoostUsed = false;
 
 public:
 	void UpdatePositionAndForward(Vector2, Vector2, int, int);
@@ -55,5 +56,8 @@ public:
 	Vector2 GetForward() const;
 
 	int GetNextCheckpointID() const;
+
+	bool HasBoost() const;
+	void UseBoost();
 };
 

@@ -74,8 +74,10 @@ void Brain::ComputeAndPrintInstruction()
 		MoveInst = ComputePodCommand(i);
 
 		// Fill thrust string with skill usage or thrust value
-		if (m_cSkill.UseBoost(m_cNextCheckpoint))
+		if (m_cSkill.UseBoost(m_vPlayer[i], m_vCheckpoints))
 			thrust = "BOOST";
+		else if (m_cSkill.UseShield(m_vPlayer[i], m_vEnnemy))
+			thrust = "Shield";
 		else
 			thrust = to_string(MoveInst.thrust);
 

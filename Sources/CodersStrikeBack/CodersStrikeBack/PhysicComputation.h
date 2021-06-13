@@ -14,6 +14,6 @@ public:
 	/// <param name="">second entity</param>
 	/// <param name="">number of turn to check, must be positive, or null to check current overlapping</param>
 	/// <returns>number of turn before collision</returns>
-	int AreEntityInCollidingPath(const SceneEntity&, const SceneEntity&, unsigned int);
+	int AreEntityInCollidingPath(const SceneEntity&, const SceneEntity&, int);
 };
 

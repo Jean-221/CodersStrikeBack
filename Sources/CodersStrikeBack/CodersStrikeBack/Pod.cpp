@@ -42,3 +42,13 @@ int Pod::GetNextCheckpointID() const
 {
 	return m_iNextCheckpointIndex;
 }
+
+bool Pod::HasBoost() const
+{
+	return !m_bBoostUsed;
+}
+
+void Pod::UseBoost()
+{
+	m_bBoostUsed = true;
+}

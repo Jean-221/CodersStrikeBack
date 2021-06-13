@@ -1,6 +1,15 @@
 #include "PhysicComputation.h"
 
-bool PhysicComputation::AreEntityColliding(const SceneEntity& first, const SceneEntity& second)
+int PhysicComputation::AreEntityInCollidingPath(const SceneEntity& _cFirst, const SceneEntity& _cSecond, unsigned int _iNbTurn)
 {
-    return (second.GetPosition() - first.GetPosition()).Length() < (first.GetRadius() + second.GetRadius());
+    while (_iNbTurn <= 0)
+    {
+        float distBetweenEntity = (_cSecond.GetPosition() + _cSecond.GetVelocity() * _iNbTurn - _cFirst.GetPosition() + _cFirst.GetVelocity() * _iNbTurn).Length();
+        float collisionDistance = _cFirst.GetRadius() + _cSecond.GetRadius();
+
+        if (distBetweenEntity < collisionDistance)
+            return _iNbTurn;
+    }
+
+    return 0;
 }

@@ -6,6 +6,8 @@
 #include "Pod.h"
 #include "Checkpoint.h"
 
+using namespace std;
+
 
 /// <summary>
 /// Handle component that'll decide movement and use of skill of pods and translate instruction for codingame
@@ -13,25 +15,41 @@
 class Brain
 {
 protected:
+    static const int s_iNumberOfPlayerPods;
+    static const int s_iNumberOfEnnemyPods;
 
     CheckpointData m_cNextCheckpoint; // position of the next check point
     MovementInstructionData m_cMovementData;
 
+    MovementBrain m_cMovementBrain;
     SkillBrain m_cSkill;
 
-    Pod m_cPlayer;
-    Pod m_cEnnemy;
+    vector<Pod> m_vPlayer;
+    vector<Pod> m_vEnnemy;
 
-    std::vector<Checkpoint> m_vCheckpoints;
+    vector<Checkpoint> m_vCheckpoints;
     bool m_bFirstLapDone = false;
+
+    // Circuit data
+    int m_iNbLaps = 0;
+    int m_iCheckpointCount = 0;
 
 
     /// <summary>
     /// Compute command for the pod
     /// </summary>
-    void ComputePodCommand();
+    /// <param name="">index of the player pod to compute</param>
+    /// <returns>Movement data for the pod</returns>
+    MovementInstructionData ComputePodCommand(int);
 
 public:
+    Brain();
+
+    /// <summary>
+    /// Acquire Lap information( checkpoint, number of laps, etc)
+    /// </summary>
+    void AcquireLapInformation();
+
     /// <summary>
     /// Acquire input from codingame
     /// </summary>

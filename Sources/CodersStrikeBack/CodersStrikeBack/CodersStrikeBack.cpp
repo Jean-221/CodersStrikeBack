@@ -8,6 +8,8 @@ int main()
 {
     AllTest();
     Brain AI;
+    AI.AcquireLapInformation();
+
     while (1) 
     {
         AI.AcquireBoardState();

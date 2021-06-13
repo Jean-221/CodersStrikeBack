@@ -42,7 +42,7 @@ Vector2 Vector2::operator*(float _fMult) const
 
 Vector2 Vector2::operator/(float _fDiv) const
 {
-	return *this * 1/ _fDiv;
+	return *this * (1/ _fDiv);
 }
 
 Vector2 Vector2::Normalized() const

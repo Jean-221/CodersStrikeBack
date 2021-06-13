@@ -5,50 +5,81 @@
 
 using namespace std;
 
+
+Brain::Brain()
+{
+	m_vPlayer.resize(s_iNumberOfPlayerPods);
+	m_vEnnemy.resize(s_iNumberOfEnnemyPods);
+}
+
+void Brain::AcquireLapInformation()
+{
+	cin >> m_iNbLaps; cin.ignore();
+	cin >> m_iCheckpointCount; cin.ignore();
+
+	for (int i = 0; i < m_iCheckpointCount; i++)
+	{
+		Vector2 checkpointPos;
+		cin >> checkpointPos.x >> checkpointPos.y; cin.ignore();
+
+		// Should not be called after first turn, need some cleaning
+		if (m_vCheckpoints.size() < m_iCheckpointCount)
+			m_vCheckpoints.push_back(Checkpoint(checkpointPos));
+	}
+}
+
 void Brain::AcquireBoardState()
 {
 	// store pod position before instantiation
 	Vector2 podPos;
 
-	// capture input from codingame for the player pod and the next checkpoint
-	cin >> podPos.x >> podPos.y >> m_cNextCheckpoint.position.x >> m_cNextCheckpoint.position.y
-		>> m_cNextCheckpoint.Dist >> m_cNextCheckpoint.Angle; cin.ignore();
 
-	// update player data
-	m_cPlayer.UpdatePositionAndForward(podPos, m_cNextCheckpoint);
+	for (int i = 0; i < s_iNumberOfPlayerPods; i++)
+	{
+		// capture input from codingame for the player pod and the next checkpoint
+		cin >> podPos.x >> podPos.y >> m_cNextCheckpoint.position.x >> m_cNextCheckpoint.position.y
+			>> m_cNextCheckpoint.Dist >> m_cNextCheckpoint.Angle; cin.ignore();
 
-	Checkpoint c(m_cNextCheckpoint.position);
+		// update player data
+		m_vPlayer[i].UpdatePositionAndForward(podPos, m_cNextCheckpoint);
+	}
 
-	// create checkpoints and store them (will become obsolete in gold)
-	if (!m_bFirstLapDone && find(m_vCheckpoints.begin(), m_vCheckpoints.end(), c) == m_vCheckpoints.end())
-		m_vCheckpoints.push_back(c);
-	else if (c == *m_vCheckpoints.begin() && m_vCheckpoints.size() >= 2)  // if the next checkpoint is the first, and we have already passed 2nd checkpoint
-		m_bFirstLapDone = true;											  // we have completed first lap
 
-	// capture input from codingame for the ennemy pod
-	cin >> podPos.x >> podPos.y; cin.ignore();
 
-	// update ennemy data
-	m_cEnnemy.UpdatePositionAndForward(podPos, m_cNextCheckpoint);
+	for (int i = 0; i < s_iNumberOfEnnemyPods; i++)
+	{
+		// capture input from codingame for the ennemy pod
+		cin >> podPos.x >> podPos.y; cin.ignore();
+
+		// update ennemy data
+		m_vEnnemy[i].UpdatePositionAndForward(podPos, m_cNextCheckpoint);
+	}
 }
 
-void Brain::ComputePodCommand()
+MovementInstructionData Brain::ComputePodCommand(int _iIndex)
 {
-	MovementBrain movementBrain;
-	m_cMovementData = movementBrain.ComputeMovement(m_cNextCheckpoint, m_cPlayer);
+	return m_cMovementBrain.ComputeMovement(m_cNextCheckpoint, m_vPlayer[_iIndex]);
 }
+
 
 void Brain::ComputeAndPrintInstruction()
 {
 	string thrust;
+	MovementInstructionData MoveInst;
 
-	ComputePodCommand();
+	for (int i = 0; i < s_iNumberOfPlayerPods; i++)
+	{
+		MoveInst = ComputePodCommand(i);
 
-	// Fill thrust string with skill usage or thrust value
-	if (m_cSkill.UseBoost(m_cNextCheckpoint))
-		thrust = "BOOST";
-	else
-		thrust = to_string(m_cMovementData.thrust);
+		// Fill thrust string with skill usage or thrust value
+		if (m_cSkill.UseBoost(m_cNextCheckpoint))
+			thrust = "BOOST";
+		else
+			thrust = to_string(MoveInst.thrust);
 
-	cout << m_cMovementData.targetPos.x << " " << m_cMovementData.targetPos.y << " " << thrust << endl;
+		cout << MoveInst.targetPos.x << " " << MoveInst.targetPos.y << " " << thrust << endl;
+	}
 }
+
+const int Brain::s_iNumberOfPlayerPods = 2;
+const int Brain::s_iNumberOfEnnemyPods = 2;

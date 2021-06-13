@@ -20,13 +20,17 @@ struct Vector2
 
 	Vector2 operator *(float) const;
 
+	Vector2 operator /(float) const;
+
+	Vector2 Normalized() const;
+
 	float dot(Vector2 other) const;
 
 	/// <summary>
 	/// return int approximation to simplify calculation since every game variable are int
 	/// </summary>
 	/// <returns></returns>
-	float Length();
+	float Length() const;
 
 };
 

@@ -16,12 +16,12 @@ Vector2::Vector2(float x, float y)
 
 Vector2 Vector2::operator-() const
 {
-	return { -x, -y };
+	return Vector2(-x, -y);
 }
 
 Vector2 Vector2::operator+(const Vector2& other) const
 {
-	return { x + other.x, y + other.y };
+	return Vector2(x + other.x, y + other.y);
 }
 
 Vector2 Vector2::operator-(const Vector2& other) const
@@ -36,7 +36,17 @@ bool Vector2::operator==(const Vector2& other) const
 
 Vector2 Vector2::operator*(float mult) const
 {
-	return {x * mult, y * mult};
+	return Vector2(x * mult, y * mult);
+}
+
+Vector2 Vector2::operator/(float div) const
+{
+	return Vector2(x/div, y/div);
+}
+
+Vector2 Vector2::Normalized() const
+{
+	return Vector2(x, y)/Length();
 }
 
 float Vector2::dot(Vector2 other) const
@@ -52,7 +62,7 @@ Vector2& Vector2::operator=(Vector2 other)
 	return *this;
 }
 
-float Vector2::Length()
+float Vector2::Length() const
 {
 	return sqrt(pow(x, 2) + pow(y, 2));
 }

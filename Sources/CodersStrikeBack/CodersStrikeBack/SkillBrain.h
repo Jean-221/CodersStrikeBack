@@ -5,7 +5,7 @@ class SkillBrain
 {
 protected:
 	bool m_bBoostAvailable = true;
-	int m_iBoostDistActivation = 6000;
+	int m_iBoostDistActivation = 6200;
 	int m_iMaximumAngleForBoost = 10;
 
 public:
